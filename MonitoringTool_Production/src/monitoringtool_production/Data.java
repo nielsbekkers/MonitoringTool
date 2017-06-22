@@ -22,7 +22,7 @@ public class Data {
     Connection con;
     
     public void createConnection() throws SQLException{
-        this.con = DriverManager.getConnection("jdbc:mysql://localhost:8889/MonitoringTool",uName,uPass);
+        this.con = DriverManager.getConnection("jdbc:mysql://localhost:8889/monitoringtool",uName,uPass);
     }
     
     public ResultSet getTableData() throws Exception {
@@ -32,21 +32,23 @@ public class Data {
         return rs;  
     }
     
-    public void updateRowToDB(String v) throws Exception{
+    public boolean updateRowToDB(String v) throws Exception{
         
         String query = " UPDATE " + TableName + " SET aantal = ? ";
         PreparedStatement preparedStmt = con.prepareStatement(query);
-        preparedStmt.setString(0, v);
+        preparedStmt.setString(1, v);
        
         try {
                 con.setAutoCommit(false);
                 preparedStmt.executeUpdate();
                 con.commit();
+                return true;
         } 
         catch(Exception e)
         {
                 System.out.println(e);
                 preparedStmt.close();
+                return false;
         }
        // preparedStmt.executeUpdate();
     }
