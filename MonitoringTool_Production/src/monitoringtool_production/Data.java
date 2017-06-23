@@ -18,11 +18,18 @@ public class Data {
     
     String TableName = "product";
     String uName = "root";
-    String uPass= "root";
+    String uPass= "";
+    String uPassN = "root";
     Connection con;
+    String connectionFlag = "F";
     
     public void createConnection() throws SQLException{
-        this.con = DriverManager.getConnection("jdbc:mysql://localhost:8889/monitoringtool",uName,uPass);
+        switch(connectionFlag){
+            case "N":   this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/monitoringtool",uName,uPassN);
+                        break;
+            case "F":   this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/monitoringtool",uName,uPass);
+                        break;
+        }
     }
     
     public ResultSet getTableData() throws Exception {
