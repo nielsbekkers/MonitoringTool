@@ -1,6 +1,7 @@
 package monitoringtool_live;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -29,6 +30,7 @@ public class MonitoringTool_Live extends ApplicationFrame implements ActionListe
 
     private TimeSeries series;
     private double lastValue = 100.0;
+    boolean start = true;
     Realtime RealtimeData;
     XYSeriesCollection dataset;
     ChartPanel chartPanel;
@@ -46,14 +48,14 @@ public class MonitoringTool_Live extends ApplicationFrame implements ActionListe
         final JFreeChart chart = createChart(dataset);
 
         final ChartPanel chartPanel = new ChartPanel(chart);
-        final JButton button = new JButton("Nieuwe data toevoegen");
-        button.setActionCommand("ADD_DATA");
+        final JButton button = new JButton("Start Live Weergave");
+        button.setActionCommand("START");
         button.addActionListener(this);
 
         final JPanel content = new JPanel(new BorderLayout());
         content.add(chartPanel);
         content.add(button, BorderLayout.SOUTH);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        chartPanel.setPreferredSize(new java.awt.Dimension(900, 570));
         setContentPane(content);
 
     }
@@ -69,32 +71,41 @@ public class MonitoringTool_Live extends ApplicationFrame implements ActionListe
             false
         );
         final XYPlot plot = result.getXYPlot();
+        plot.getRenderer().setSeriesPaint(0, Color.BLUE);
+        plot.setBackgroundPaint(Color.lightGray);
         ValueAxis axis = plot.getDomainAxis();
         axis.setAutoRange(true);
-        axis.setFixedAutoRange(120000.0);  // 60 seconden
+        axis.setFixedAutoRange(120000.0);  // 120 seconden
         axis = plot.getRangeAxis();
         axis.setRange(0.0, 200.0); 
         return result;
     }
     
     public void actionPerformed(final ActionEvent e) {
-        if (e.getActionCommand().equals("ADD_DATA")) {
-            try {
-                ResultSet rs = RealtimeData.getRealtimeData();
-                while(rs.next()){
-                    id = rs.getInt("id");
-                    name = rs.getString("productnaam");
-                    aantal = rs.getString("aantal");
-                    this.lastValue = Double.parseDouble(aantal);
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
+        Thread thread = new Thread(){
+            public void run(){
+                    while (start = true){
+                        if (e.getActionCommand().equals("START")) {
+                            try {
+                                Thread.sleep(1000);
+                                ResultSet rs = RealtimeData.getRealtimeData();
+                                while(rs.next()){
+                                    id = rs.getInt("id");
+                                    name = rs.getString("productnaam");
+                                    aantal = rs.getString("aantal");
+                                    lastValue = Double.parseDouble(aantal);
+                                }
+                            } catch (Exception ex) {
+                                System.out.println(ex);
+                            }
+                            final Millisecond now = new Millisecond();
+                            System.out.println("Now = " + now.toString());
+                            series.add(new Millisecond(), lastValue);
+                        }
+                    }
             }
-
-            final Millisecond now = new Millisecond();
-            System.out.println("Now = " + now.toString());
-            this.series.add(new Millisecond(), this.lastValue);
-        }
+        };
+        thread.start();
     }
 
     public static void main(final String[] args) throws SQLException {
