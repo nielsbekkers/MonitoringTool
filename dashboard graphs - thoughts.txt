@@ -1,0 +1,26 @@
+*	Productie VS Verkoop (rood  vs groen)
+	XY graph
+	5 grafieken (1 groot zie boven, 4 kleine zie onder)
+		- productie/dag VS verkoop/dag	
+		-          /week          /week
+		-		   /maand		  /maand
+		-		   /jaar		  /jaar
+		
+			voor elk van deze grafieken de lijnen uitzetten:
+				- min (avg) afgelopen dag/week/maand/jaar
+				- max (avg)	afgelopen dag/week/maand/jaar
+				- avg		afgelopen dag/week/maand/jaar
+			
+		+ aangeven op hoeveel % van periode we momenteel zitten (0-100% bar/scale)
+			(dag(8u), week(5d), maand(20d), jaar(?d)
+			+ hoeveel % van de target (avg) reeds gehaald is
+	
+*	Stock (productie - verkoop)
+	XY graph
+	weergeven voor afgelopen dag/week/maand/jaar ?
+		voor elk van deze grafieke de lijnen uitzetten:
+			- nullijn (rood)
+			- reserve van (nullijn + max dag verkoop) (groene zone)
+			- overstock grens (oranje zone)
+			- overproductie grens (nullijn + 2 * max dag verkoop) (rode zone)
+			
