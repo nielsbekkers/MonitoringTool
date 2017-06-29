@@ -16,7 +16,7 @@ import java.util.Vector;
  */
 public class Data {
     
-    String TableName = "product";
+    String TableName = "product_types";
     String uName = "root";
     String uPass= "";
     String uPassN = "root";
@@ -32,17 +32,17 @@ public class Data {
         }
     }
     
-    public ResultSet getTableData() throws Exception {
+    public ResultSet getTableData(String PId) throws Exception {
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from " + TableName);
-        
+        ResultSet rs = stmt.executeQuery("select * from " + TableName + " WHERE PId = " + PId);
         return rs;  
     }
     
-    public boolean updateRowToDB(String v) throws Exception{
+    public boolean updateRowToDB(String v, String PId) throws Exception{
         
-        String query = " UPDATE " + TableName + " SET aantal = ? ";
+        String query = " UPDATE " + TableName + " SET Amount = ? WHERE PId = ?";
         PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setString(2, PId);
         preparedStmt.setString(1, v);
        
         try {
