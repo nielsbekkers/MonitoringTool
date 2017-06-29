@@ -45,7 +45,7 @@ CREATE TABLE `product_detail` (
   `Id` int(11) NOT NULL,
   `PId` int(11) NOT NULL,
   `Serial_Number` varchar(50) NOT NULL,
-  `Time_Unix` int(11) NOT NULL,
+  `Time_Unix` bigint(20) NOT NULL,
   `Property_1` varchar(50) NOT NULL,
   `Property_2` varchar(50) NOT NULL,
   `Property_3` varchar(50) NOT NULL
@@ -62,7 +62,7 @@ CREATE TABLE `product_detail_last_25` (
   `Id` int(11) NOT NULL,
   `PId` int(11) NOT NULL,
   `Serial_Number` varchar(50) NOT NULL,
-  `Time_Unix` int(11) NOT NULL,
+  `Time_Unix` bigint(20) NOT NULL,
   `Property_1` varchar(50) NOT NULL,
   `Property_2` varchar(50) NOT NULL,
   `Property_3` varchar(50) NOT NULL
