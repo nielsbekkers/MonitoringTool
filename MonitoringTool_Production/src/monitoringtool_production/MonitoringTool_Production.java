@@ -12,7 +12,7 @@ public class MonitoringTool_Production {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, Exception {
         JFrame frm1 = new GUI();
         frm1.setVisible(true);
     }

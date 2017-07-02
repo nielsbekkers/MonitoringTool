@@ -2,12 +2,16 @@ package monitoringtool_production;
 
 import java.awt.Color;
 import java.awt.Image;
+import static java.lang.System.currentTimeMillis;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -22,6 +26,7 @@ public class Data {
     String uPassN = "root";
     Connection con;
     String connectionFlag = "F";
+    Random rnd = new Random();
     
     public void createConnection() throws SQLException{
         switch(connectionFlag){
@@ -38,12 +43,12 @@ public class Data {
         return rs;  
     }
     
-    public boolean updateRowToDB(String v, String PId) throws Exception{
+    public boolean updateRowToDB(String newAmount, String PId) throws Exception{
         
-        String query = " UPDATE " + TableName + " SET Amount = ? WHERE PId = ?";
+        String query = " UPDATE product_types SET Amount = ? WHERE PId = ?";
         PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setString(1, newAmount);
         preparedStmt.setString(2, PId);
-        preparedStmt.setString(1, v);
        
         try {
                 con.setAutoCommit(false);
@@ -59,4 +64,89 @@ public class Data {
         }
        // preparedStmt.executeUpdate();
     }
+    
+    public boolean updateLastUpdateDateToDB(String TimeUnix) throws Exception{
+        
+        String query = " UPDATE database_changed SET Time_Unix = ? WHERE Id = 1";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setString(1, TimeUnix);
+       
+        try {
+                con.setAutoCommit(false);
+                preparedStmt.executeUpdate();
+                con.commit();
+                return true;
+        } 
+        catch(Exception e)
+        {
+                System.out.println(e);
+                preparedStmt.close();
+                return false;
+        }
+    }
+    
+    public List<ProductType> getProductTypes() throws Exception {
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from product_types");
+        List<ProductType> productTypeArrayList = new ArrayList<ProductType>();
+                    while(rs.next()){
+                        ProductType productType = new ProductType();
+                        productType.pId = rs.getInt("PId");
+                        productType.name = rs.getString("Name");
+                        productType.amount = rs.getInt("Amount");
+                        productTypeArrayList.add(productType);
+            }
+        return productTypeArrayList;
+    }     
+    
+    public ProductType getProduct(String name)throws Exception{
+        ProductType productType = new ProductType();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from product_types");
+                    while(rs.next()){
+                        if (rs.getString("Name").equals(name)) {
+                            productType.pId = rs.getInt("PId");
+                            productType.name = rs.getString("Name");
+                            productType.amount = rs.getInt("Amount");
+                        }
+            }
+        return productType;
+    }
+    
+    public String generateSerialNumber(ProductType productType){
+    String serialNumber = "";
+    serialNumber = String.valueOf(productType.pId);
+    serialNumber += String.valueOf(currentTimeMillis() / 1000);
+    serialNumber += String.valueOf(rnd.nextInt(1000000));
+    return serialNumber;
+    }
+    
+    public boolean insertNewProduction(Product product) throws SQLException{
+        long TimeUnixLong = currentTimeMillis() / 1000;
+        String TimeUnix = String.valueOf(TimeUnixLong);
+        String query = " INSERT INTO product_detail (PId,Serial_Number,Time_Unix,Property_1,Property_2,Property_3) VALUES (?,?,?,?,?,?)";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setString(1, String.valueOf(product.pId));
+        preparedStmt.setString(2, product.serialNumber);
+        preparedStmt.setString(3, TimeUnix);
+        preparedStmt.setString(4, product.property1);
+        preparedStmt.setString(5, product.property2);
+        preparedStmt.setString(6, product.property3);
+       
+        try {
+                con.setAutoCommit(false);
+                preparedStmt.executeUpdate();
+                con.commit();
+                return true;
+        } 
+        catch(Exception e)
+        {
+                System.out.println(e);
+                preparedStmt.close();
+                return false;
+        }
+    }
+    
+    
+    
 }
