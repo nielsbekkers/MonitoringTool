@@ -25,12 +25,12 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() throws SQLException, Exception {
         initComponents();
-        jLabel2.setVisible(false);
+//        jLabel2.setVisible(false);
         
         //Maak verbinding met de database
         data = new Data();
         data.createConnection();
-        getDataFromDatabase();
+        //getDataFromDatabase();
         
         //For the Confirm Production dropdown filling of product types:
         productTypeArrayList = data.getProductTypes();
@@ -42,52 +42,39 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    private void getDataFromDatabase(){
-        try {
-            long startTime = nanoTime();
-            String PId = jTextField2.getText();
-            if (PId == ""||PId == null) {
-                PId = "1";
-            }
-            ResultSet rs = data.getTableData(PId);
-            while(rs.next()){
-                id = rs.getInt("PId");
-                name = rs.getString("Name");
-                amount = rs.getString("Amount");
-                
-                long endTime = nanoTime();
-                long elapsedTimeInNs = endTime - startTime;
-                long elapsedTimeInMs = TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs);
-                String x = new StringBuilder(String.valueOf(elapsedTimeInNs)).append(" ns").toString();
-                String y = new StringBuilder(String.valueOf(elapsedTimeInMs)).append(" ms").toString();
-                jLabel6.setText(name);
-                jLabel3.setText(x);
-                jLabel4.setText(y);
-                jTextField1.setText(amount);
-                
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }
+//    private void getDataFromDatabase(){
+//        try {
+//            long startTime = nanoTime();
+//            String PId = jTextField2.getText();
+//            if (PId == ""||PId == null) {
+//                PId = "1";
+//            }
+//            ResultSet rs = data.getTableData(PId);
+//            while(rs.next()){
+//                id = rs.getInt("PId");
+//                name = rs.getString("Name");
+//                amount = rs.getString("Amount");
+//                
+//                long endTime = nanoTime();
+//                long elapsedTimeInNs = endTime - startTime;
+//                long elapsedTimeInMs = TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs);
+//                String x = new StringBuilder(String.valueOf(elapsedTimeInNs)).append(" ns").toString();
+//                String y = new StringBuilder(String.valueOf(elapsedTimeInMs)).append(" ms").toString();
+//                jLabel6.setText(name);
+//                jLabel3.setText(x);
+//                jLabel4.setText(y);
+//                jTextField1.setText(amount);
+//                
+//            }
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -109,45 +96,6 @@ public class GUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Aantal:");
-
-        jTextField1.setText("aantal");
-
-        jButton1.setText("Program");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("SUCCES!");
-
-        jLabel3.setText("jLabel3");
-
-        jLabel4.setText("jLabel4");
-
-        jLabel5.setText("PId:");
-
-        jTextField2.setText("1");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("name");
-
-        jButton2.setText("Refresh");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Query stats:");
-
-        jLabel8.setText("jLabel8");
 
         jLabel9.setText("Product type:");
 
@@ -212,46 +160,7 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(44, 44, 44)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel8)))
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel1)
-                                .addGap(26, 26, 26)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(83, 83, 83)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel21)
@@ -287,37 +196,13 @@ public class GUI extends javax.swing.JFrame {
                                         .addComponent(jButton3)
                                         .addComponent(jLabel15)
                                         .addComponent(jLabel12))))
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 204, Short.MAX_VALUE))))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addGap(37, 37, 37)
+                .addGap(67, 67, 67)
                 .addComponent(jLabel21)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -359,57 +244,15 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        long startTime = nanoTime();
-        String inputValue = jTextField1.getText();
-        String PId = jTextField2.getText();
-        jProgressBar1.setValue(0);
-        long TimeUnix = currentTimeMillis() / 1000;
-        String TimeUnixString = String.valueOf(TimeUnix);
-        try {
-            //Voer update uit!
-            if((data.updateRowToDB(inputValue,PId) == true)&&(data.updateLastUpdateDateToDB(TimeUnixString) == true)){
-                //updateRowToDB settings:
-                jProgressBar1.setValue(100);
-                jProgressBar1.setForeground(Color.green);
-                jLabel2.setVisible(true);
-                long endTime = nanoTime();
-                long elapsedTimeInNs = endTime - startTime;
-                long elapsedTimeInMs = TimeUnit.NANOSECONDS.toMillis(elapsedTimeInNs);
-                String x = new StringBuilder(String.valueOf(elapsedTimeInNs)).append(" ns").toString();
-                String y = new StringBuilder(String.valueOf(elapsedTimeInMs)).append(" ms").toString();
-                jLabel3.setText(x);
-                jLabel4.setText(y);
-                //updateLastUpdateDateToDB settings:
-                jLabel8.setText(TimeUnixString);
-            }
-            else{
-                jProgressBar1.setValue(50);
-                jProgressBar1.setForeground(Color.red);
-                jLabel2.setVisible(false);
-            }
-            
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        getDataFromDatabase();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Generate a serial number
         String sn = "";
         try {
             ProductType pt = data.getProduct(jComboBox1.getSelectedItem().toString());
@@ -425,6 +268,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        //when an item gets selected in the product_types combobox 
         for (ProductType productType : productTypeArrayList) {
             if (productType.name != null && productType.name.contains(jComboBox1.getSelectedItem().toString())) {
                 jLabel13.setText(String.valueOf(productType.pId));
@@ -435,7 +279,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //insert new production
+        //insert(register) new production in product_detail
         Product prod = new Product();
         prod.pId = jLabel13.getText();
         prod.serialNumber = jLabel17.getText();
@@ -515,12 +359,9 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -531,19 +372,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;

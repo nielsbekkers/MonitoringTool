@@ -37,19 +37,18 @@ public class Data {
         }
     }
     
-    public ResultSet getTableData(String PId) throws Exception {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from " + TableName + " WHERE PId = " + PId);
-        return rs;  
-    }
+//    public ResultSet getTableData(String PId) throws Exception {
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery("select * from " + TableName + " WHERE PId = " + PId);
+//        return rs;  
+//    }
     
     public boolean updateRowToDB(String newAmount, String PId) throws Exception{
-        
+        //update the total amount of items of one product_type
         String query = " UPDATE product_types SET Amount = ? WHERE PId = ?";
         PreparedStatement preparedStmt = con.prepareStatement(query);
         preparedStmt.setString(1, newAmount);
         preparedStmt.setString(2, PId);
-       
         try {
                 con.setAutoCommit(false);
                 preparedStmt.executeUpdate();
@@ -62,15 +61,13 @@ public class Data {
                 preparedStmt.close();
                 return false;
         }
-       // preparedStmt.executeUpdate();
     }
     
     public boolean updateLastUpdateDateToDB(String TimeUnix) throws Exception{
-        
+        //update the last modification date of the database in database_changed
         String query = " UPDATE database_changed SET Time_Unix = ? WHERE Id = 1";
         PreparedStatement preparedStmt = con.prepareStatement(query);
         preparedStmt.setString(1, TimeUnix);
-       
         try {
                 con.setAutoCommit(false);
                 preparedStmt.executeUpdate();
@@ -86,6 +83,7 @@ public class Data {
     }
     
     public List<ProductType> getProductTypes() throws Exception {
+        //get all product_types and return in an ArrayList
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from product_types");
         List<ProductType> productTypeArrayList = new ArrayList<ProductType>();
@@ -100,6 +98,7 @@ public class Data {
     }     
     
     public ProductType getProduct(String name)throws Exception{
+        //get full product_type information, search with the name/description property
         ProductType productType = new ProductType();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from product_types");
@@ -114,14 +113,16 @@ public class Data {
     }
     
     public String generateSerialNumber(ProductType productType){
-    String serialNumber = "";
-    serialNumber = String.valueOf(productType.pId);
-    serialNumber += String.valueOf(currentTimeMillis() / 1000);
-    serialNumber += String.valueOf(rnd.nextInt(1000000));
-    return serialNumber;
+        //generate a unique serial number out of: PId + Unix Time + random number between 0-1.000.000
+        String serialNumber = "";
+        serialNumber = String.valueOf(productType.pId);
+        serialNumber += String.valueOf(currentTimeMillis() / 1000);
+        serialNumber += String.valueOf(rnd.nextInt(1000000));
+        return serialNumber;
     }
     
     public boolean insertNewProduction(Product product) throws SQLException{
+        //insert a new product of an existing product_type with unique serial number, creation time in Unix Time and 3 optional properties
         long TimeUnixLong = currentTimeMillis() / 1000;
         String TimeUnix = String.valueOf(TimeUnixLong);
         String query = " INSERT INTO product_detail (PId,Serial_Number,Time_Unix,Property_1,Property_2,Property_3) VALUES (?,?,?,?,?,?)";
