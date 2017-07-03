@@ -25,12 +25,12 @@ public class Data {
     String uPass= "";
     String uPassN = "root";
     Connection con;
-    String connectionFlag = "F";
+    String connectionFlag = "N";
     Random rnd = new Random();
     
     public void createConnection() throws SQLException{
         switch(connectionFlag){
-            case "N":   this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/monitoringtool",uName,uPassN);
+            case "N":   this.con = DriverManager.getConnection("jdbc:mysql://localhost:8889/monitoringtool",uName,uPassN);
                         break;
             case "F":   this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/monitoringtool",uName,uPass);
                         break;
