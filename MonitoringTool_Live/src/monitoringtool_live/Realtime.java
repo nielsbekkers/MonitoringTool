@@ -12,7 +12,7 @@ import java.sql.Statement;
  */
 public class Realtime {
     
-    String TableName = "product";
+    String TableName = "product_types";
     String uName = "root";
     String uPass= "";
     String uPassN = "root";
