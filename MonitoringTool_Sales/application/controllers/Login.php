@@ -25,7 +25,7 @@ class Login extends CI_Controller
                 ];
 
                    $this->session->set_userdata($data);         //Sessie gebruikt in controller Home.php
-                   redirect('home');            				//adminpagina
+                   redirect('representative');            				//adminpagina
                 
 
             } else {
