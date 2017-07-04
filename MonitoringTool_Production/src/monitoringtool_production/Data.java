@@ -25,7 +25,7 @@ public class Data {
     String uPass= "";
     String uPassN = "root";
     Connection con;
-    String connectionFlag = "N";
+    String connectionFlag = "F";
     Random rnd = new Random();
     
     public void createConnection() throws SQLException{

@@ -17,7 +17,7 @@ public class Realtime {
     String uPass= "";
     String uPassN = "root";
     Connection con;
-    String connectionFlag = "N";
+    String connectionFlag = "F";
     
     public void createConnection() throws SQLException{
         switch(connectionFlag){

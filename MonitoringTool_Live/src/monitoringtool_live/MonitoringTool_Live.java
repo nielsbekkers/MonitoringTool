@@ -82,7 +82,7 @@ public class MonitoringTool_Live extends ApplicationFrame implements ActionListe
         datasetMeterPlot = new DefaultValueDataset(50.0);
         JFreeChart chart = createMeterPlot(datasetMeterPlot);
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new java.awt.Dimension(300, 400));
+        panel.setPreferredSize(new java.awt.Dimension(300, 1000));
         panel.add(new ChartPanel(chart));
         return panel;
     }
@@ -113,7 +113,7 @@ public class MonitoringTool_Live extends ApplicationFrame implements ActionListe
         axis.setAutoRange(true);
         axis.setFixedAutoRange(120000.0);  // 120 seconden
         axis = plot.getRangeAxis();
-        axis.setRange(0.0, 200.0); 
+        axis.setRange(0.0, 1000.0); 
         return result;
     }
     
