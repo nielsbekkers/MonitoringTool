@@ -23,6 +23,14 @@ class Representative extends CI_Controller
         $aCustomers = $this->oRep->getCustomers();
         $this->sProductTypesSelect = $this->oRep->generateProductSelectFromArray($aProductTypes,'productTypesSelect','Select the product type');
         $this->sCustomersSelect = $this->oRep->generateCustomerSelectFromArray($aCustomers,'customersSelect','Select your customer');
+        $sSN = "1234567";
+        $iRows = "2";
+        if (isset($_POST['SalesFormButton'])) {
+            $iRows = $this->oRep->saveNewSale($_POST['productTypesSelect'],$sSN,$_POST['customersSelect']);
+        }
+        if ($iRows==TRUE) {
+            echo "Rijen toegevoegd aan database: ".$iRows;
+        }
         $this->load->view("representative");
     }
     /**

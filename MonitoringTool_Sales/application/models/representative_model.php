@@ -27,7 +27,7 @@ class Representative_Model extends CI_Model
     
     function generateProductSelectFromArray($aArray,$sName,$sFirstOption){
         // echo your opening Select
-        $sHtml = "<select name=' $sName '>";
+        $sHtml = "<select name='$sName'>";
         // Use simple foreach to generate the options
         $sHtml .= "<option value='null'> $sFirstOption </option>";
         foreach($aArray as $row) {
@@ -39,11 +39,11 @@ class Representative_Model extends CI_Model
     
     function generateCustomerSelectFromArray($aArray,$sName,$sFirstOption){
         // echo your opening Select
-        $sHtml = "<select name=' $sName '>";
+        $sHtml = "<select name='$sName'>";
         // Use simple foreach to generate the options
         $sHtml .= "<option value='null'> $sFirstOption </option>";
         foreach($aArray as $row) {
-            $sHtml .= "<option value=' $row '> $row </option>";
+            $sHtml .= "<option value=' $row->Id '> $row->Name </option>";
         }
         $sHtml .= "</select>";
         return $sHtml;
@@ -58,12 +58,23 @@ class Representative_Model extends CI_Model
         return $aProductTypes;
     }
     public function getCustomers(){
-
+        $query = $this->db->query('SELECT Id, Name FROM customers');
         $aCustomers = array();
-        array_push($aCustomers,'Jos');
-        array_push($aCustomers,'Piet');
-        array_push($aCustomers,'George');
+        foreach ($query->result() as $row) {
+            array_push($aCustomers, $row);
+        }
         return $aCustomers;
+    }
+    public function saveNewSale($sPId,$sSN,$sCI){
+//        $sql = "INSERT INTO sales (PId,Serial_Number,Client_Id) VALUES (".$this->db->escape($sPId).",".$this->db->escape($sSN).",".$this->db->escape($sCI).")";
+//        $this->db->query($sql);
+//        return $this->db->affected_rows();
+        $aValues = array(
+            'PId' => $this->db->escape($sPId),
+            'Serial_Number' => $this->db->escape($sSN),
+            'Client_Id' => $this->db->escape($sCI)
+        );
+        return $this->db->insert('sales',$aValues);
     }
     /**
      * stopt login validatie
