@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 jul 2017 om 18:18
+-- Gegenereerd op: 06 jul 2017 om 21:05
 -- Serverversie: 10.1.16-MariaDB
 -- PHP-versie: 7.0.9
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `monitoringtool` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `monitoringtool`;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE `customers` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `customers`
+--
+
+INSERT INTO `customers` (`Id`, `Name`) VALUES
+(1, 'IPTE'),
+(2, 'Jabil');
 
 -- --------------------------------------------------------
 
@@ -179,6 +199,13 @@ CREATE TABLE `sales` (
 --
 
 --
+-- Indexen voor tabel `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Name` (`Name`);
+
+--
 -- Indexen voor tabel `database_changed`
 --
 ALTER TABLE `database_changed`
@@ -228,6 +255,11 @@ ALTER TABLE `sales`
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
+--
+-- AUTO_INCREMENT voor een tabel `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT voor een tabel `database_changed`
 --
