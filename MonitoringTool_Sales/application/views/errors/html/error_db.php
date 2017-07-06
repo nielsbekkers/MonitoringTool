@@ -57,25 +57,8 @@ p {
 </head>
 <body>
 	<div id="container">
-            <h2> &nbsp;Er heeft zich een algemene database fout voorgedaan! dit kan ontstaan uit de volgende problemen: </h2>
-            <ul>
-                <li>De gebruiker die u wenst te registreren bestaat al in onze database</li>
-                <li>De afspraak die u wenst te maken is al bezet</li>
-                <li>U heeft uw profiel nog niet volledig aangevuld: <u><a href='<?php echo site_url('profielUser'); ?>'/>Ga naar mijn profiel</u></li>
-            </ul>
-            
-            <!--<p><a href="<?php echo site_url('login'); ?>"><img border="0" alt="Toevoegen" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/left_round.png" width="50" height="50"></a></p>-->
-            
-            <table align='center'>
-                <tr>
-                    <td><center><a href="<?php echo site_url('login'); ?>"><img border="0" alt="Toevoegen" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/left_round.png" width="50" height="50"></a></center></td>
-                    <td><center><a href="<?php echo site_url('afspraakUser'); ?>"><img border="0" alt="Toevoegen" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/right_round.png" width="50" height="50"></a></center></td>
-                </tr>
-                <tr>
-                    <td><center>Homepagina</center></td>
-                    <td><center>Afspraakpagina</center></td>
-                </tr>
-            </table>
+		<h1><?php echo $heading; ?></h1>
+		<?php echo $message; ?>
 	</div>
 </body>
 </html>

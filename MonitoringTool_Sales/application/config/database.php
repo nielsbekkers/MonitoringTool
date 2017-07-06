@@ -71,7 +71,7 @@ switch ($choiceOfDB) {
             'dsn'	=> '',
             'hostname' => 'localhost',
             'username' => 'root',
-            'password' => '',
+            'password' => 'root',
             'database' => 'monitoringtool',
             'dbdriver' => 'mysqli',
             'dbprefix' => '',
