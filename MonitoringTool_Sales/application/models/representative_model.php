@@ -65,17 +65,33 @@ class Representative_Model extends CI_Model
         }
         return $aCustomers;
     }
-    public function saveNewSale($sPId,$sSN,$sCI){
-//        $sql = "INSERT INTO sales (PId,Serial_Number,Client_Id) VALUES (".$this->db->escape($sPId).",".$this->db->escape($sSN).",".$this->db->escape($sCI).")";
-//        $this->db->query($sql);
-//        return $this->db->affected_rows();
-        $aValues = array(
-            'PId' => $this->db->escape($sPId),
-            'Serial_Number' => $this->db->escape($sSN),
-            'Client_Id' => $this->db->escape($sCI)
-        );
-        return $this->db->insert('sales',$aValues);
+    public function saveNewSale($sPId,$sSN,$sCId){
+        $sql = "INSERT INTO sales (PId,Serial_Number,Client_Id) VALUES (".$this->db->escape($sPId).",".$this->db->escape($sSN).",".$this->db->escape($sCId).")";
+        $this->db->query($sql);
+        $iRows = $this->db->affected_rows();
+        if ($iRows==1) {
+            $this->db->set("Sold",TRUE);
+            $this->db->where("Serial_Number",$sSN);
+            $this->db->update("product_detail");
+        }
+        return $iRows;
+//        $aValues = array(
+//            'PId' => $this->db->escape($sPId),
+//            'Serial_Number' => $this->db->escape($sSN),
+//            'Client_Id' => $this->db->escape($sCI)
+//        );
+//        return $this->db->insert('sales',$aValues);
     }
+    
+    public function getFreeSerialNumbersArray($sPId){
+        $query = $this->db->query('SELECT Serial_Number FROM product_detail WHERE PId = '.$this->db->escape($sPId).' AND Sold = 0');
+        $aSerialNumbers = array();
+        foreach ($query->result() as $row) {
+            array_push($aSerialNumbers, $row->Serial_Number);
+        }
+        return $aSerialNumbers;
+    }
+    
     /**
      * stopt login validatie
      */

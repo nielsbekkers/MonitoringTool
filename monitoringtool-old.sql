@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 15 jul 2017 om 15:42
+-- Gegenereerd op: 06 jul 2017 om 21:05
 -- Serverversie: 10.1.16-MariaDB
 -- PHP-versie: 7.0.9
 
@@ -96,51 +96,51 @@ CREATE TABLE `product_detail` (
   `Time_Unix` bigint(20) NOT NULL,
   `Property_1` varchar(50) NOT NULL,
   `Property_2` varchar(50) NOT NULL,
-  `Property_3` varchar(50) NOT NULL,
-  `Sold` tinyint(1) NOT NULL DEFAULT '0'
+  `Property_3` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `product_detail`
 --
 
-INSERT INTO `product_detail` (`Id`, `PId`, `Serial_Number`, `Time_Unix`, `Property_1`, `Property_2`, `Property_3`, `Sold`) VALUES
-(1, 2, '21498982508126403', 1498982532, 'green', 'large', 'boxed', 1),
-(2, 2, '21498982630390088', 1498982638, 'green', 'large', 'boxed', 0),
-(3, 2, '21498982652532701', 1498982653, 'green', 'large', 'boxed', 0),
-(4, 1, '11499003898488494', 1499003902, 'jTextField3', 'jTextField4', 'jTextField5', 1),
-(5, 1, '11499004016251528', 1499004029, '1', '2', '3', 1),
-(6, 1, '11499004060920447', 1499004066, '1', '2', '3', 1),
-(7, 1, '11499004179283348', 1499004200, 'jTextField3', 'jTextField4', 'jTextField5', 1),
-(8, 1, '11499004726280399', 1499004729, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(9, 1, '11499004769703932', 1499004775, '1', '2', '3', 0),
-(10, 1, '11499004879226317', 1499004902, '1', '2', '3', 0),
-(11, 1, '1149900503927180', 1499005048, '1', '2', '3', 0),
-(13, 1, '1149900506686485', 1499005071, '1', '2', '3', 0),
-(14, 1, '11499005158580631', 1499005168, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(16, 1, '11499005299892690', 1499005301, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(19, 1, '11499005311882886', 1499005314, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(23, 1, '11499005319612831', 1499005320, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(26, 1, '11499005323775041', 1499005324, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(30, 2, '21499010380536543', 1499010382, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(32, 2, '21499010386238057', 1499010387, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(39, 1, '11499019291648343', 1499019292, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(43, 1, '1149901929529999', 1499019296, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(44, 2, '21499019340932208', 1499019343, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(46, 2, '21499019345865330', 1499019346, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(49, 1, '11499019852960415', 1499019859, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(54, 1, '11499019866314730', 1499019868, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(55, 1, '11499096398756453', 1499096403, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(58, 1, '11499096412896911', 1499096415, 'jTextField3', 'jTextField4', 'jTextField5', 0),
-(59, 1, '11499163981879494', 1499163983, '', '', '', 0),
-(61, 1, '11499165465129696', 1499165467, '', '', '', 0),
-(63, 2, '21499165477617836', 1499165479, '', '', '', 0),
-(65, 2, '21499165481876869', 1499165482, '', '', '', 0),
-(66, 2, '21499165483184617', 1499165485, '', '', '', 0),
-(67, 2, '21499165486410093', 1499165487, '', '', '', 0),
-(68, 2, '21499165787905875', 1499165788, '', '', '', 0),
-(69, 2, '2149916579190756', 1499165792, '', '', '', 0),
-(70, 2, '2149916579628042', 1499165797, '', '', '', 0);
+INSERT INTO `product_detail` (`Id`, `PId`, `Serial_Number`, `Time_Unix`, `Property_1`, `Property_2`, `Property_3`) VALUES
+(1, 2, '21498982508126403', 1498982532, 'green', 'large', 'boxed'),
+(2, 2, '21498982630390088', 1498982638, 'green', 'large', 'boxed'),
+(3, 2, '21498982652532701', 1498982653, 'green', 'large', 'boxed'),
+(4, 1, '11499003898488494', 1499003902, 'jTextField3', 'jTextField4', 'jTextField5'),
+(5, 1, '11499004016251528', 1499004029, '1', '2', '3'),
+(6, 1, '11499004060920447', 1499004066, '1', '2', '3'),
+(7, 1, '11499004179283348', 1499004200, 'jTextField3', 'jTextField4', 'jTextField5'),
+(8, 1, '11499004726280399', 1499004729, 'jTextField3', 'jTextField4', 'jTextField5'),
+(9, 1, '11499004769703932', 1499004775, '1', '2', '3'),
+(10, 1, '11499004879226317', 1499004902, '1', '2', '3'),
+(11, 1, '1149900503927180', 1499005048, '1', '2', '3'),
+(13, 1, '1149900506686485', 1499005071, '1', '2', '3'),
+(14, 1, '11499005158580631', 1499005168, 'jTextField3', 'jTextField4', 'jTextField5'),
+(16, 1, '11499005299892690', 1499005301, 'jTextField3', 'jTextField4', 'jTextField5'),
+(19, 1, '11499005311882886', 1499005314, 'jTextField3', 'jTextField4', 'jTextField5'),
+(23, 1, '11499005319612831', 1499005320, 'jTextField3', 'jTextField4', 'jTextField5'),
+(26, 1, '11499005323775041', 1499005324, 'jTextField3', 'jTextField4', 'jTextField5'),
+(30, 2, '21499010380536543', 1499010382, 'jTextField3', 'jTextField4', 'jTextField5'),
+(32, 2, '21499010386238057', 1499010387, 'jTextField3', 'jTextField4', 'jTextField5'),
+(33, 1, 'jLabel17', 1499019251, 'jTextField3', 'jTextField4', 'jTextField5'),
+(39, 1, '11499019291648343', 1499019292, 'jTextField3', 'jTextField4', 'jTextField5'),
+(43, 1, '1149901929529999', 1499019296, 'jTextField3', 'jTextField4', 'jTextField5'),
+(44, 2, '21499019340932208', 1499019343, 'jTextField3', 'jTextField4', 'jTextField5'),
+(46, 2, '21499019345865330', 1499019346, 'jTextField3', 'jTextField4', 'jTextField5'),
+(49, 1, '11499019852960415', 1499019859, 'jTextField3', 'jTextField4', 'jTextField5'),
+(54, 1, '11499019866314730', 1499019868, 'jTextField3', 'jTextField4', 'jTextField5'),
+(55, 1, '11499096398756453', 1499096403, 'jTextField3', 'jTextField4', 'jTextField5'),
+(58, 1, '11499096412896911', 1499096415, 'jTextField3', 'jTextField4', 'jTextField5'),
+(59, 1, '11499163981879494', 1499163983, '', '', ''),
+(61, 1, '11499165465129696', 1499165467, '', '', ''),
+(63, 2, '21499165477617836', 1499165479, '', '', ''),
+(65, 2, '21499165481876869', 1499165482, '', '', ''),
+(66, 2, '21499165483184617', 1499165485, '', '', ''),
+(67, 2, '21499165486410093', 1499165487, '', '', ''),
+(68, 2, '21499165787905875', 1499165788, '', '', ''),
+(69, 2, '2149916579190756', 1499165792, '', '', ''),
+(70, 2, '2149916579628042', 1499165797, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -193,17 +193,6 @@ CREATE TABLE `sales` (
   `Serial_Number` varchar(50) NOT NULL,
   `Client_Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Gegevens worden geëxporteerd voor tabel `sales`
---
-
-INSERT INTO `sales` (`Id`, `PId`, `Serial_Number`, `Client_Id`) VALUES
-(16, 2, '21498982508126403', 1),
-(18, 1, '11499003898488494', 1),
-(19, 1, '11499004016251528', 1),
-(20, 1, '11499004060920447', 1),
-(21, 1, '11499004179283348', 1);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -295,7 +284,7 @@ ALTER TABLE `product_detail_last_25`
 -- AUTO_INCREMENT voor een tabel `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
