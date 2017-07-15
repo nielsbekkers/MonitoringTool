@@ -40,6 +40,7 @@ class Representative extends CI_Controller
         }
         if ($iRows>0) {
             echo "Rijen toegevoegd aan database: ".$iRows;
+            $this->oRep->setDatabaseChangedDate();
         }  else {
             echo $iRows." rijen toegevoegd aan database! ";
         }

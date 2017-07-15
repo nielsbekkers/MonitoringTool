@@ -83,6 +83,13 @@ class Representative_Model extends CI_Model
 //        return $this->db->insert('sales',$aValues);
     }
     
+    public function setDatabaseChangedDate(){
+        $lTimeUnix = time();
+        $this->db->set("Time_Unix",$lTimeUnix);
+        $this->db->where("Id","1");
+        $this->db->update("database_changed");
+    }
+    
     public function getFreeSerialNumbersArray($sPId){
         $query = $this->db->query('SELECT Serial_Number FROM product_detail WHERE PId = '.$this->db->escape($sPId).' AND Sold = 0');
         $aSerialNumbers = array();
