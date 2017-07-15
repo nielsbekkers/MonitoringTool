@@ -18,33 +18,49 @@ class Representative extends CI_Controller
     }
 
     public function index() {
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
         $this->load->model('representative_model','oRep');
         $aProductTypes = $this->oRep->getProductTypes();
         $aCustomers = $this->oRep->getCustomers();
         $this->sProductTypesSelect = $this->oRep->generateProductSelectFromArray($aProductTypes,'productTypesSelect','Select the product type');
         $this->sCustomersSelect = $this->oRep->generateCustomerSelectFromArray($aCustomers,'customersSelect','Select your customer');
         $sSN = "0";
-
+        $aSerialNumbers = array();
         $iRows = 0;
         $iCounter = 0;
-        if (isset($_POST['SalesFormButton'])) {
-            $aSerialNumbers = $this->oRep->getFreeSerialNumbersArray($_POST['productTypesSelect']);
-            $iAmountSold = $_POST['amountOfProducts'];
-            while ($iCounter<$iAmountSold) {
-                if (isset($aSerialNumbers[$iCounter])) {
-                    $sSN = $aSerialNumbers[$iCounter];
-                    $iRows += $this->oRep->saveNewSale($_POST['productTypesSelect'],$sSN,$_POST['customersSelect']);
+
+            $this->form_validation->set_rules('customersSelect', 'Customer', 'required|callback_check_default');
+            $this->form_validation->set_rules('productTypesSelect', 'Product', 'required|callback_check_default');
+            $this->form_validation->set_rules('amountOfProducts', 'Amount', 'required');
+            $this->form_validation->set_message('check_default', 'You need to select something other than the default in one dropdown selection box!');
+        
+        if ($this->form_validation->run() == FALSE)
+                {
+                        $this->load->view("representative");
                 }
-                $iCounter++;
-            }
-        }
-        if ($iRows>0) {
-            echo "Rijen toegevoegd aan database: ".$iRows;
-            $this->oRep->setDatabaseChangedDate();
-        }  else {
-            echo $iRows." rijen toegevoegd aan database! ";
-        }
-        $this->load->view("representative");
+                else
+                {
+                        if (isset($_POST['SalesFormButton'])) {
+                            $aSerialNumbers = $this->oRep->getFreeSerialNumbersArray($_POST['productTypesSelect']);
+                            $iAmountSold = $_POST['amountOfProducts'];
+                            while ($iCounter<$iAmountSold) {
+                                if (isset($aSerialNumbers[$iCounter])) {
+                                    $sSN = $aSerialNumbers[$iCounter];
+                                    $iRows += $this->oRep->saveNewSale($_POST['productTypesSelect'],$sSN,$_POST['customersSelect']);
+                                }
+                                $iCounter++;
+                            }
+                        }
+                        if ($iRows>0) {
+                            echo "Rijen toegevoegd aan database: ".$iRows;
+                            $this->oRep->setDatabaseChangedDate();
+                        }  else {
+                            echo $iRows." rijen toegevoegd aan database! ";
+                        }
+                    $this->load->view('formsuccess');
+                }
+        
     }
     /**
      * functie voor uit te logen 
@@ -56,4 +72,10 @@ class Representative extends CI_Controller
 
         redirect('login');
     }
+    function check_default($post_string)
+    {
+      return $post_string == 'null' ? FALSE : TRUE;
+    }
+    
+    
 }
