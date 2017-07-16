@@ -29,9 +29,9 @@ class Representative_Model extends CI_Model
         // echo your opening Select
         $sHtml = "<select name='$sName'>";
         // Use simple foreach to generate the options
-        $sHtml .= "<option value='null'> $sFirstOption </option>";
+        $sHtml .= "<option value='null' ".set_select($sName,'null',TRUE).">".$sFirstOption ."</option>";
         foreach($aArray as $row) {
-            $sHtml .= "<option value=' $row->PId '> $row->Name </option>";
+                $sHtml .= "<option value='$row->PId'".set_select($sName,$row->PId).">$row->Name </option>";
         }
         $sHtml .= "</select>";
         return $sHtml;
@@ -41,9 +41,9 @@ class Representative_Model extends CI_Model
         // echo your opening Select
         $sHtml = "<select name='$sName'>";
         // Use simple foreach to generate the options
-        $sHtml .= "<option value='null'> $sFirstOption </option>";
+        $sHtml .= "<option value='null' ".set_select($sName,'null',TRUE).">$sFirstOption</option>";
         foreach($aArray as $row) {
-            $sHtml .= "<option value=' $row->Id '> $row->Name </option>";
+                $sHtml .= "<option value='$row->Id' ".set_select($sName,$row->Id).">$row->Name</option>";
         }
         $sHtml .= "</select>";
         return $sHtml;

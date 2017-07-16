@@ -18,8 +18,8 @@ class Representative extends CI_Controller
     }
 
     public function index() {
-        $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
+        $this->load->helper(array('form', 'url'));
         $this->load->model('representative_model','oRep');
         $aProductTypes = $this->oRep->getProductTypes();
         $aCustomers = $this->oRep->getCustomers();
