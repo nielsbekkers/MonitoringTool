@@ -321,7 +321,13 @@ public class GUI extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         //when an item gets selected in the product_types combobox
+
         if(ProductTypeCombo.getSelectedItem() != "Start From Here"){
+            try {
+                productTypeArrayList = data.getProductTypes();
+            } catch (Exception ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             jPanel2.setVisible(true);
             jPanel3.setVisible(true);
             pack();

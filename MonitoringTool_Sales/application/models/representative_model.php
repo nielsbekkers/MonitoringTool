@@ -73,6 +73,18 @@ class Representative_Model extends CI_Model
             $this->db->set("Sold",TRUE);
             $this->db->where("Serial_Number",$sSN);
             $this->db->update("product_detail");
+            $iRows = $this->db->affected_rows();
+            if ($iRows==1) {
+                $sql = "SELECT Amount FROM product_types WHERE PId=" . $sPId;
+                $query = $this->db->query($sql);
+                $oRow = $query->row();
+                $iAmount = $oRow->Amount;
+                $iAmount--;
+                $this->db->set('Amount',$iAmount);
+                $this->db->where('PId',$sPId);
+                $this->db->update('product_types');
+                $iRows = $this->db->affected_rows();
+            }
         }
         return $iRows;
 //        $aValues = array(
