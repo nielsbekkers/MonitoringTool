@@ -19,6 +19,8 @@ class Representative extends CI_Controller
 
     public function index() {
         $this->load->library('form_validation');
+        include('httpful.phar');
+    
         $this->load->helper(array('form', 'url'));
         $this->load->model('representative_model','oRep');
         $aProductTypes = $this->oRep->getProductTypes();

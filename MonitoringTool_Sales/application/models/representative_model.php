@@ -31,7 +31,7 @@ class Representative_Model extends CI_Model
         // Use simple foreach to generate the options
         $sHtml .= "<option value='null' ".set_select($sName,'null',TRUE).">".$sFirstOption ."</option>";
         foreach($aArray as $row) {
-                $sHtml .= "<option value='$row->PId'".set_select($sName,$row->PId).">$row->Name </option>";
+                $sHtml .= "<option value='".$row['PId']."' ".set_select($sName,$row['PId']).">".$row['Name']."</option>";
         }
         $sHtml .= "</select>";
         return $sHtml;
@@ -43,28 +43,70 @@ class Representative_Model extends CI_Model
         // Use simple foreach to generate the options
         $sHtml .= "<option value='null' ".set_select($sName,'null',TRUE).">$sFirstOption</option>";
         foreach($aArray as $row) {
-                $sHtml .= "<option value='$row->Id' ".set_select($sName,$row->Id).">$row->Name</option>";
+            $sHtml .= "<option value='".$row['Id']."' ".set_select($sName,$row['Id']).">".$row['Name']."</option>";
+//                $sHtml .= "<option value='".$row->Id."' ".set_select($sName,$row->Id).">".$row->Name."</option>";
         }
         $sHtml .= "</select>";
         return $sHtml;
     }
     
     public function getProductTypes(){
-        $query = $this->db->query('SELECT PId, Name, Amount FROM product_types');
+        
+       
+        $oResponse = \Httpful\Request::get('http://localhost:8080/RESTServiceDash/webresources/entities.producttypes')
+                ->expectsXml()
+                ->send();
+
+        $aResponse = $oResponse->body->productTypes;
+        
         $aProductTypes = array();
-        foreach ($query->result() as $row) {
-            array_push($aProductTypes, $row);
+        $iTeller = 0;
+        while ($iTeller < count($aResponse)) {
+            $aElement = array();
+            foreach ($aResponse[$iTeller] as $key => $value) {
+                $aElement[ucfirst((string)$key)] = (string)$value;
+            }
+            array_push($aProductTypes, $aElement);
+            $iTeller++;
         }
+
+        
+//        $query = $this->db->query('SELECT PId, Name, Amount FROM product_types');
+//        $aProductTypes = array();
+//        foreach ($query->result() as $row) {
+//            array_push($aProductTypes, $row);
+//        }
         return $aProductTypes;
     }
+    
     public function getCustomers(){
-        $query = $this->db->query('SELECT Id, Name FROM customers');
+        
+        $oResponse = \Httpful\Request::get('http://localhost:8080/RESTServiceDash/webresources/entities.customers')
+                ->expectsXml()
+                ->send();
+
+        $aResponse = $oResponse->body->customers;
+        
         $aCustomers = array();
-        foreach ($query->result() as $row) {
-            array_push($aCustomers, $row);
+        $iTeller = 0;
+        while ($iTeller < count($aResponse)) {
+            $aElement = array();
+            foreach ($aResponse[$iTeller] as $key => $value) {
+                $aElement[ucfirst((string)$key)] = (string)$value;
+            }
+            array_push($aCustomers, $aElement);
+            $iTeller++;
         }
+        
+        
+//        $query = $this->db->query('SELECT Id, Name FROM customers');
+//        $aCustomers = array();
+//        foreach ($query->result() as $row) {
+//            array_push($aCustomers, $row);
+//        }
         return $aCustomers;
     }
+    
     public function saveNewSale($sPId,$sSN,$sCId){
         $sql = "INSERT INTO sales (PId,Serial_Number,Client_Id) VALUES (".$this->db->escape($sPId).",".$this->db->escape($sSN).",".$this->db->escape($sCId).")";
         $this->db->query($sql);
