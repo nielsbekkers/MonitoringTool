@@ -5,8 +5,16 @@
  */
 package entities.service;
 
+import entities.ProductDetail;
+import entities.ProductTypes;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.persistence.Parameter;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -59,6 +67,27 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    public String findBySoldandByPId(Integer sold, Integer pId){
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
+        Root<AbstractFacade> c = cq.from(entityClass);
+        cq.select(c);
+        
+        ProductTypes pt = new ProductTypes();
+        pt.setPId(pId);
+        
+        cq.where(
+                cb.equal(c.get("sold"), sold),
+                cb.equal(c.get("pId"), pt)
+        );
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        //q.setParameter("sold", sold);
+        //q.setParameter("pId", pId);
+//javax.persistence.Query q2 = getEntityManager().createQuery(cq);
+        
+        return String.valueOf(q.getResultList().size());
     }
     
 }

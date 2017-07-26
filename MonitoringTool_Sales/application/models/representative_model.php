@@ -139,9 +139,18 @@ class Representative_Model extends CI_Model
     
     public function setDatabaseChangedDate(){
         $lTimeUnix = time();
-        $this->db->set("Time_Unix",$lTimeUnix);
-        $this->db->where("Id","1");
-        $this->db->update("database_changed");
+        
+        
+    $oResponse = \Httpful\Request::put('http://localhost:8080/RESTServiceDash/webresources/entities.databasechanged/1')
+                ->body('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><databaseChanged><id>1</id><timeUnix>'.$lTimeUnix.'</timeUnix></databaseChanged>')
+                ->sendsXml()
+                ->send();
+
+       
+        
+//        $this->db->set("Time_Unix",$lTimeUnix);
+//        $this->db->where("Id","1");
+//        $this->db->update("database_changed");
     }
     
     public function getFreeSerialNumbersArray($sPId){

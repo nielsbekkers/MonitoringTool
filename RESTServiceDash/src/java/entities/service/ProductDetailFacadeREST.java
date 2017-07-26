@@ -60,7 +60,7 @@ public class ProductDetailFacadeREST extends AbstractFacade<ProductDetail> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public String find(@PathParam("id") Integer id) {
         //return type: ProductDetail
-        return (super.find(id)).toString();
+        return String.valueOf(super.find(id));
     }
 
     @GET
@@ -73,8 +73,9 @@ public class ProductDetailFacadeREST extends AbstractFacade<ProductDetail> {
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ProductDetail> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public String findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        //return type: List<ProductDetail>
+        return String.valueOf(super.findRange(new int[]{from, to}));
     }
 
     @GET
@@ -88,5 +89,17 @@ public class ProductDetailFacadeREST extends AbstractFacade<ProductDetail> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @GET
+    @Path("notsold/{sold}/{pId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    //@Override
+    public String findBySoldandByPId(@PathParam("sold") Integer sold, @PathParam("pId") Integer pId) {
+        //return type: List<ProductDetail>
+
+        return String.valueOf(super.findBySoldandByPId(sold, pId));
+    }
+    
+    
     
 }

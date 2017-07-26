@@ -38,7 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProductDetail.findByProperty1", query = "SELECT p FROM ProductDetail p WHERE p.property1 = :property1"),
     @NamedQuery(name = "ProductDetail.findByProperty2", query = "SELECT p FROM ProductDetail p WHERE p.property2 = :property2"),
     @NamedQuery(name = "ProductDetail.findByProperty3", query = "SELECT p FROM ProductDetail p WHERE p.property3 = :property3"),
-    @NamedQuery(name = "ProductDetail.findBySold", query = "SELECT p FROM ProductDetail p WHERE p.sold = :sold")})
+    @NamedQuery(name = "ProductDetail.findBySold", query = "SELECT p FROM ProductDetail p WHERE p.sold = :sold"),
+    @NamedQuery(name = "ProductDetail.findBySoldandByPId", query = "SELECT p FROM ProductDetail p WHERE p.sold = :sold AND p.pId.pId = :pId")}) //self made
+
 public class ProductDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -98,6 +100,7 @@ public class ProductDetail implements Serializable {
         this.sold = sold;
     }
 
+   
     public Integer getId() {
         return id;
     }
