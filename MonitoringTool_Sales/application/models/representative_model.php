@@ -154,11 +154,31 @@ class Representative_Model extends CI_Model
     }
     
     public function getFreeSerialNumbersArray($sPId){
-        $query = $this->db->query('SELECT Serial_Number FROM product_detail WHERE PId = '.$this->db->escape($sPId).' AND Sold = 0');
+
+        $oResponse = \Httpful\Request::get('http://localhost:8080/RESTServiceDash/webresources/entities.productdetail/notsold/0/' . $sPId)
+                ->expectsXml()
+                ->send();
+
+        $aResponse = $oResponse->body;
+        
         $aSerialNumbers = array();
-        foreach ($query->result() as $row) {
-            array_push($aSerialNumbers, $row->Serial_Number);
-        }
+
+            $iTeller = 0;
+            foreach ($aResponse as $key => $value) {
+                foreach ($value as $key2 => $value2) {
+                    if ($key2 == "serialNumber") {
+                        $aSerialNumbers[$iTeller] = (string)$value2[0];
+                    }
+                }
+                $iTeller++;
+            }
+        
+        
+//        $query = $this->db->query('SELECT Serial_Number FROM product_detail WHERE PId = '.$this->db->escape($sPId).' AND Sold = 0');
+//        $aSerialNumbers2 = array();
+//        foreach ($query->result() as $row) {
+//            array_push($aSerialNumbers2, $row->Serial_Number);
+//        }
         return $aSerialNumbers;
     }
     

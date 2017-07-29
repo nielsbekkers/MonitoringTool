@@ -5,7 +5,9 @@
  */
 package entities.service;
 
+import com.thoughtworks.xstream.XStream;
 import entities.ProductDetail;
+import java.io.IOException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -92,12 +94,13 @@ public class ProductDetailFacadeREST extends AbstractFacade<ProductDetail> {
     
     @GET
     @Path("notsold/{sold}/{pId}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML , MediaType.APPLICATION_JSON})
     //@Override
-    public String findBySoldandByPId(@PathParam("sold") Integer sold, @PathParam("pId") Integer pId) {
+    public String findBySoldandByPId(@PathParam("sold") Integer sold, @PathParam("pId") Integer pId) throws IOException {
         //return type: List<ProductDetail>
+        
 
-        return String.valueOf(super.findBySoldandByPId(sold, pId));
+        return super.findBySoldandByPId(sold, pId); 
     }
     
     

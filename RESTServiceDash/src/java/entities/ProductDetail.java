@@ -82,6 +82,17 @@ public class ProductDetail implements Serializable {
     private ProductTypes pId;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "serialNumber")
     private Sales sales;
+    
+
+    //private int pid;
+
+//    public int getPid() {
+//        return pid;
+//    }
+//
+//    public void setPid(int pid) {
+//        this.pid = pid;
+//    }
 
     public ProductDetail() {
     }
